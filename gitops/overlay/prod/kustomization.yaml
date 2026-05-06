@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: prod
+namePrefix: prod-
+
+resources:
+  - ../../base
+
+patches:
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: irrelevant-deployment
+        namespace: prod
+      spec:
+        replicas: 4
+    target:
+      kind: Deployment

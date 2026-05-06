@@ -1,0 +1,44 @@
+#overlay/dev/kustomization.yaml
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: dev
+namePrefix: dev-
+
+resources:
+  - ../../base
+
+
+#this work for all the microservices and set the replicas to 1 for all .
+patches:
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: irrelevant-deployment
+      spec:
+        replicas: 1
+    target:
+      kind: Deployment
+
+# this work for each microservice if the replicas are not set to be the same thing across all environments. if they are the same thing across all environments, then we can set the replicas in the base kustomization file and not have to worry about it in the overlay kustomization files.
+# patches:
+#   - patch: |-
+#       apiVersion: apps/v1
+#       kind: Deployment
+#       metadata:
+#         name: cart-deployment-v1
+#       spec:
+#         replicas: 1
+#     target:
+#       kind: Deployment
+#       name: cart-deployment-v1
+#       labelSelector: app=cart-service
+
+
+
+# dev - no images block needed right now Because:
+# its not deploying to a real cluster yet
+# still building the GitOps structure and
+# Image tags get updated automatically by CI/CD later

@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: staging
+namePrefix: staging-
+
+resources:
+  - ../../base
+
+
+patches: 
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: irrelevant-deployment
+        namespace: staging
+      spec:
+        replicas: 2
+    target:
+      kind: Deployment
+
+
+images:
+  - name: payment-service
+    newName: briitzacr.azurecr.io/payment-service
+    newTag: v2

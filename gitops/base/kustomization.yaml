@@ -1,0 +1,17 @@
+# this is the base kustomization file for the gitops repository. it brings all the other kustomization files together and applies them in the correct order.
+
+# base/kustomization.yaml
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - deployments/cart
+  - deployments/inventory
+  - deployments/payment
+  - deployments/order
+  - deployments/notification
+  - deployments/product
+  - deployments/shipping
+  - deployments/user
+  

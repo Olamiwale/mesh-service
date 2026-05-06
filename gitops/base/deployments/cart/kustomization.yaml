@@ -1,0 +1,11 @@
+# this is a kustomization file for the cart deployment. it defines the resources that will be deployed to the cluster when we apply this kustomization.
+
+# base/deployments/cart/kustomization.yaml
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - deployment-v1.yaml
+  - deployment-v2.yaml
+  - service.yaml
